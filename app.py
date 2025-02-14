@@ -1,14 +1,13 @@
 from tkinter import messagebox
 import function
+import NoLaboratory
+import Laboratory
 from tkinter import *
-import re
-import requests  # Importando a biblioteca para requisições HTTP (se necessário)
 
 def criarJanelaPrincipal():
     """
     Cria e exibe a janela principal.
     """
-    # Criando a janela principal como Toplevel se já existir outra instância
     if hasattr(criarJanelaPrincipal, "janela") and criarJanelaPrincipal.janela.winfo_exists():
         criarJanelaPrincipal.janela.destroy()
 
@@ -16,46 +15,32 @@ def criarJanelaPrincipal():
     janela = criarJanelaPrincipal.janela
     function.centralizar_janela(janela)
     janela.title("Sistema XML para integração Padrão Tasy")
+    janela.geometry("500x400")
+    janela.resizable(False, False)
 
-    # Label de orientação
-    texto_orientacao = Label(janela, text="Selecione a Aplicação:")
-    texto_orientacao.pack(side=TOP, fill=X, padx=0, pady=50)
+    top_frame = Frame(janela, bg="#f0f0f0", height=60, relief="ridge", bd=2)
+    top_frame.pack(fill=X)
 
-# Campo para inserir o endpoint
-    texto_endpoint = Label(janela, text="Digite o Endpoint para Simulação:")
-    texto_endpoint.pack(pady=5)
+    label_title = Label(top_frame, text="Sistema XML para integração Padrão Tasy", font=("Arial", 14, "bold"), bg="#f0f0f0")
+    label_title.pack(pady=15)
 
-    entrada_endpoint = Entry(janela, width=40)
-    entrada_endpoint.pack(pady=5)
+    main_frame = Frame(janela, bg="#ffffff")
+    main_frame.pack(fill=BOTH, expand=True, padx=20, pady=10)
 
-    # Função de validação do endpoint
-    def validar_endpoint():
-        endpoint = entrada_endpoint.get()
-        
-        # Regex para verificar se o endpoint é uma URL válida
-        regex = r'^(http|https)://[a-zA-Z0-9-_.]+(\.[a-zA-Z]{2,})+(:[0-9]{1,5})?(/.*)?$'
-        if re.match(regex, endpoint):
-            # Se for válido, exibe uma mensagem de sucesso
-            messagebox.showinfo("Sucesso", "Endpoint válido!")
-        else:
-            # Se não for válido, exibe uma mensagem de erro
-            messagebox.showerror("Erro", "Endpoint inválido! Certifique-se de que a URL está correta.")
+    texto_orientacao = Label(main_frame, text="Selecione a Aplicação:", font=("Arial", 12), bg="#ffffff")
+    texto_orientacao.pack(pady=20)
 
-    # Botão para validar o endpoint
-    botao_validar_endpoint = Button(janela, text="Validar Endpoint", command=validar_endpoint)
-    botao_validar_endpoint.pack(pady=5)
+    botaoLaboratorio = Button(main_frame, text="Laboratório", font=("Arial", 10), width=20, command=lambda: abrirJanelaLaboratorio(janela))
+    botaoLaboratorio.pack(pady=10)
 
-    # Botão Laboratório
-    botaoLaboratorio = Button(janela, text="Laboratório", command=lambda: abrirJanelaLaboratorio(janela))
-    botaoLaboratorio.pack(pady=5)
+    botaoNaoLaboratorio = Button(main_frame, text="Não Laboratório", font=("Arial", 10), width=20, command=lambda: abrirJanelaNaoLaboratorio(janela))
+    botaoNaoLaboratorio.pack(pady=10)
 
-    # Botão Não Laboratório
-    botaoNaoLaboratorio = Button(janela, text="Não Laboratório", command=lambda: abrirJanelaNaoLaboratorio(janela))
-    botaoNaoLaboratorio.pack(pady=5)
+    footer_frame = Frame(janela, bg="#f0f0f0", height=40, relief="ridge", bd=2)
+    footer_frame.pack(fill=X, side=BOTTOM)
 
-    # Texto de rodapé
-    texto_rodape = Label(janela, text="Criado por Selmo Werner Júnior", padx=20, pady=20)
-    texto_rodape.place(relx=0.5, rely=1.0, anchor='s')
+    texto_rodape = Label(footer_frame, text="Criado por Selmo Werner Júnior", font=("Arial", 10), bg="#f0f0f0")
+    texto_rodape.pack(pady=10)
 
     janela.protocol("WM_DELETE_WINDOW", janela.quit)
     janela.mainloop()
@@ -64,15 +49,14 @@ def abrirJanelaLaboratorio(janelaAnterior):
     """
     Fecha a janela anterior e abre a janela Laboratório.
     """
-    janelaAnterior.withdraw()  # Oculta a janela principal
-    function.abrirJanelaLaboratorio(lambda: janelaAnterior.deiconify())  # Mostra a janela principal ao fechar
-
+    janelaAnterior.withdraw()  
+    Laboratory.abrirJanelaLaboratorio(lambda: janelaAnterior.deiconify())  
 def abrirJanelaNaoLaboratorio(janelaAnterior):
     """
     Fecha a janela anterior e abre a janela Não Laboratório.
     """
-    janelaAnterior.withdraw()  # Oculta a janela principal
-    function.abrirJanelaNaoLaboratorio(lambda: janelaAnterior.deiconify())  # Mostra a janela principal ao fechar
+    janelaAnterior.withdraw()  
+    NoLaboratory.abrirJanelaNaoLaboratorio(lambda: janelaAnterior.deiconify())  
 
 if __name__ == "__main__":
     criarJanelaPrincipal()
