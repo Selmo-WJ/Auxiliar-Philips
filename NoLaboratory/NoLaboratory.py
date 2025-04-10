@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
-import function
+import Utils.function as function
 
 def abrirJanelaNaoLaboratorio(callback_reabrir):
     """
