@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
-import function, scriptsLaboratory
+import Utils.function as function
+import Laboratory.scriptsLaboratory as scriptsLaboratory
+import Trigger.JanelaTrigger as JanelaTrigger
 
 def abrirJanelaLaboratorio(callback_reabrir):
     """

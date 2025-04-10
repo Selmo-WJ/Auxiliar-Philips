@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-import function
+import Utils.function as function
 import xml.etree.ElementTree as ET
 from xml.dom.minidom import parseString
 

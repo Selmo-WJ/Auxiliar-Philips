@@ -1,7 +1,8 @@
 from tkinter import messagebox
-import function
-import NoLaboratory
-import Laboratory
+import Laboratory.JanelaLaboratory
+import NoLaboratory.NoLaboratory as NoLaboratory
+import Trigger.JanelaTrigger as Trigger
+import Utils.function as function
 from tkinter import *
 
 def criarJanelaPrincipal():
@@ -35,6 +36,10 @@ def criarJanelaPrincipal():
 
     botaoNaoLaboratorio = Button(main_frame, text="Não Laboratório", font=("Arial", 10), width=20, command=lambda: abrirJanelaNaoLaboratorio(janela))
     botaoNaoLaboratorio.pack(pady=10)
+    
+    botaoGerarTrigger = Button(main_frame, text="Gerador de Trigger", font=("Arial", 10), width=20, command=lambda: abrirJanelaTrigger(janela))
+    botaoGerarTrigger.pack(pady=10)
+
 
     footer_frame = Frame(janela, bg="#f0f0f0", height=40, relief="ridge", bd=2)
     footer_frame.pack(fill=X, side=BOTTOM)
@@ -50,13 +55,19 @@ def abrirJanelaLaboratorio(janelaAnterior):
     Fecha a janela anterior e abre a janela Laboratório.
     """
     janelaAnterior.withdraw()  
-    Laboratory.abrirJanelaLaboratorio(lambda: janelaAnterior.deiconify())  
+    Laboratory.JanelaLaboratory.abrirJanelaLaboratorio(lambda: janelaAnterior.deiconify())  
 def abrirJanelaNaoLaboratorio(janelaAnterior):
     """
     Fecha a janela anterior e abre a janela Não Laboratório.
     """
     janelaAnterior.withdraw()  
     NoLaboratory.abrirJanelaNaoLaboratorio(lambda: janelaAnterior.deiconify())  
+def abrirJanelaTrigger(janelaAnterior):
+    """
+    Fecha a janela anterior e abre a janela Trigger.
+    """
+    janelaAnterior.withdraw()  
+    Trigger.abrirJanelaTrigger()
 
 if __name__ == "__main__":
     criarJanelaPrincipal()
